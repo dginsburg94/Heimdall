@@ -1,0 +1,1 @@
+alert tcp $HOME_NET any -> $EXTERNAL_NET any (content: "cool.com" ; msg: 'user/program accessing' cool.com;)
