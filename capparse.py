@@ -22,13 +22,16 @@ def CapParse():
         # if it is tcp packet with a destination of port 80 get uri
         if tcp.dport == 80 and len(tcp.data) > 0:
             http = dpkt.http.Request(tcp.data)
+            url= http.headers['host']+http.uri
             # if the http is within our whitelist continue onto the next tcp packet
         #    if http in wlist:
         #        continue
             # if it is not in the whitelist then submit to virus total for checking
     #        else:
-                virustotal(http)
-            #print(http.headers['host']+http.uri)
+            #    virustotal(url)
+            print(url)
 
 
     f.close()
+
+CapParse()

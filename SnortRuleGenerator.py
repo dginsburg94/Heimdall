@@ -2,7 +2,8 @@
 
 ##takes generated rule and adds it to a snort rules file
 def addrule(snortrule):
-    f = open("rules.txt","w+")
+    rulefile = input('Please enter absolute file path of the snort rule file: ')
+    f = open(rulefile,'w+')
     f.write(snortrule)
     f.close()
 
@@ -36,4 +37,4 @@ def generator(url):
        return print('rule was not added')
 
 # test generate rule
-generator('cool.com')
+#generator('cool.com')
