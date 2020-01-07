@@ -35,5 +35,5 @@ def generator(url):
    else:
        return print('rule was not added')
 
-# generate rule
+# test generate rule
 generator('cool.com')

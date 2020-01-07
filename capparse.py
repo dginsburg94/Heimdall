@@ -1,24 +1,34 @@
 #!/usr/bin/env python3
 
-import sys
-from scapy.all import *
-from scapy.layers import http
+import dpkt
+from dpkt.tcp import TCP
 
-try:
-    import scapy.all as scapy
-except ImportError:
-    import scapy
+def CapParse():
+    #open pcap file
+    f = open('network.pcap', 'rb')
 
-f = open(sys.argv[1], "rb")
-packets = scapy.rdpcap(f)
+    #crerate pcap object
+    pcap = dpkt.pcap.Reader(f)
 
-for p in packets:
-	if p.haslayer("HTTPRequest"):
-		ip_layer = p.getlayer('IP')
-		http_layer = p.getlayer('HTTPRequest')
-		print '\n{0[src]} just requested a {1[Method]} {1[Host]}{1[Path]}'.format(ip_layer.fields, http_layer.fields)
-	if p.haslayer("HTTPResponse"):
-		http_response = p.getlayer('HTTPResponse')
-		print 'Response code {0[Status-Line]}'.format(http_response.fields)
+    #enumerate packets by timestamp
+    for ts, buf in pcap:
+        eth = dpkt.ethernet.Ethernet(buf)
+        ip = eth.data
+        tcp = ip.data
 
-print "\nDone. End of pcap"
+        #if not a tcp packet
+        if not isinstance(tcp, TCP):
+            continue
+        # if it is tcp packet with a destination of port 80 get uri
+        if tcp.dport == 80 and len(tcp.data) > 0:
+            http = dpkt.http.Request(tcp.data)
+            # if the http is within our whitelist continue onto the next tcp packet
+        #    if http in wlist:
+        #        continue
+            # if it is not in the whitelist then submit to virus total for checking
+    #        else:
+                virustotal(http)
+            #print(http.headers['host']+http.uri)
+
+
+    f.close()
