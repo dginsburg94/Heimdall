@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 from VirusTotalRequest import virusTotal
-from snortRuleGenerator import generator
+from SnortRuleGenerator import generator
 import os
 
 whitelist_dict = None

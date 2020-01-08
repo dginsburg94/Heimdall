@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-##takes generated rule and adds it to a snort rules file
+#takes generated rule and adds it to a snort rules file
 def addrule(snortrule):
     f = open('/etc/snort/rules/Snort_Generator_Rules.rules','w+')
     f.write(snortrule)
@@ -15,7 +15,7 @@ def addrule(snortrule):
         
 
 
-## takes malicious url and creates a snort rule around it
+# takes malicious url and creates a snort rule around it
 def generator(url):
 #variables defining the 5 tuple
     alert = 'alert'

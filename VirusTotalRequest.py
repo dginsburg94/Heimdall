@@ -6,7 +6,7 @@ from special import key
 
 def virusTotal(domain):
     url = 'https://www.virustotal.com/vtapi/v2/url/report'
-    params = {'apikey':key, 'resource':domain}
+    params = {'apikey': key, 'resource':domain}
     response = requests.get(url, params=params)
     parsed = json.loads(response.text)
     print(json.dumps(parsed, indent=4))
