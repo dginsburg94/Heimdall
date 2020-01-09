@@ -17,6 +17,17 @@ def addrule(snortrule):
 
 # takes malicious url and creates a snort rule around it
 def generator(url):
+#read from created rule file to retrieve sids that have been given out
+    try:
+        f = open('/etc/snort/rules/Snort_Generator_Rules.rules','r')
+        text = f.readlines()
+        lastline = text[-1]
+        lastline = lastline.rstrip()
+        lastline = lastline.split()
+        most_recent_sid = lastline[-1][4:-3]
+        sid = int(most_recent_sid) + 1
+    except:
+        pass 
 #variables defining the 5 tuple
     alert = 'alert'
     url = url
@@ -27,7 +38,8 @@ def generator(url):
     content = f"content: \"{url}\" "
     flowout = '->'
     flowin = '<-'
+    sid = 1000001
 
 #putting together the rule
-    rule = f'#{alert} {protocal} {sourceip} any {flowout} {destinationip} any ({content}; {message};)'
+    rule = f'#{alert} {protocal} {sourceip} any {flowout} {destinationip} any ({content}; {message}; sid:{sid};)'
     addrule(rule)
