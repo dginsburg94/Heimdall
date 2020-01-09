@@ -5,12 +5,13 @@
 . /etc/init.d/functions
 
 start() {
-     /usr/local/bin/SnortRuleGenerator
+   LOGFILE=/tmp/SnortRuleGenerator
+   date >> LOGFILE
+   /usr/local/bin/SnortRuleGenerator.py 2>&1 >> LOGFILE &
 }
 
 stop() {
-    # code to stop app comes here 
-    # example: killproc program_name
+    pkill SnortRuleGenerator
 }
 
 case "$1" in 
@@ -25,8 +26,7 @@ case "$1" in
        start
        ;;
     status)
-       # code to check status of app comes here 
-       # example: status program_name
+       /usr/local/bin/SnortRuleGenerator
        ;;
     *)
        echo "Usage: $0 {start|stop|status|restart}"
