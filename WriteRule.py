@@ -23,7 +23,7 @@ def generator(url):
     protocal = 'tcp'
     sourceip = '$HOME_NET'
     destinationip = '$EXTERNAL_NET'
-    message = f"msg: 'user/program accessing' {url}"
+    message = f"msg: 'user/program accessing' {url}; react:block;"
     content = f"content: \"{url}\" "
     flowout = '->'
     flowin = '<-'
