@@ -2,7 +2,6 @@
 import requests
 import json
 from special import key
-#bad domains from https://www.malwaredomainlist.com/mdl.php
 
 def virusTotal(domain):
     url = 'https://www.virustotal.com/vtapi/v2/url/report'
