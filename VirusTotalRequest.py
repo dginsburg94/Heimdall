@@ -8,7 +8,6 @@ def virusTotal(domain):
     params = {'apikey': key, 'resource':domain}
     response = requests.get(url, params=params)
     parsed = json.loads(response.text)
-    print(json.dumps(parsed, indent=4))
     if parsed['verbose_msg'] == 'Resource does not exist in the dataset':
         return None
     if parsed['positives'] != 0:

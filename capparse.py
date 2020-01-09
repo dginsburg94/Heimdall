@@ -3,11 +3,12 @@ import pcap
 import dpkt
 from dpkt.tcp import TCP
 from whitelist import checkwhitelist
+from interface import interface
 
 def CapParse():
-    interface = input('Please enter the name of you interface for packet capture: ')
-    pc = pcap.pcap(interface)
-# print(type(pc))
+    user_interface = interface
+    pc = pcap.pcap(user_interface)
+
     for ts, buf in pc:
         eth = dpkt.ethernet.Ethernet(buf)
         if eth.type != dpkt.ethernet.ETH_TYPE_IP:

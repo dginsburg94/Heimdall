@@ -2,8 +2,8 @@
 
 #takes generated rule and adds it to a snort rules file
 def addrule(snortrule):
-    f = open('/etc/snort/rules/Snort_Generator_Rules.rules','w+')
-    f.write(snortrule)
+    f = open('/etc/snort/rules/Snort_Generator_Rules.rules','a+')
+    f.write('\r' + snortrule)
     f.close()
     fconf = open('/etc/snort/snort.conf','r')
     text = fconf.read()
@@ -34,7 +34,7 @@ def generator(url):
     protocal = 'tcp'
     sourceip = '$HOME_NET'
     destinationip = '$EXTERNAL_NET'
-    message = f"msg: 'user/program accessing' {url}; react:block;"
+    message = f"msg: 'user/program accessing' {url}; react:block"
     content = f"content: \"{url}\" "
     flowout = '->'
     flowin = '<-'
