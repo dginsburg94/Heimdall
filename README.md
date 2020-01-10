@@ -1,1 +1,1 @@
-# Snort-Rule-Generator
+# Heimdall
